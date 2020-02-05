@@ -1,6 +1,6 @@
 import http.client
 import json
-import secrets
+from instance import secrets
 
 connection = http.client.HTTPConnection('api.football-data.org')
 headers = { 'X-Auth-Token': secrets.football_auth_token}

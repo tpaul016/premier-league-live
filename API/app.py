@@ -1,9 +1,9 @@
 from flask import Flask, request
-from flask_cors import CORS, cross_origin
-from topic_modelling import train_model
-import soccer_data_retrieval
+from flask_cors import CORS
+from tweet_processing.topic_modelling import train_model
+from soccer_data import soccer_data_retrieval
 import json
-import tweet_retrieval
+from tweet_processing import tweet_retrieval
 
 app = Flask(__name__)
 CORS(app)

@@ -1,19 +1,13 @@
-import secrets
-from tweepy import Stream
+from instance import secrets
 from tweepy import OAuthHandler
 from tweepy import API
 from tweepy import Cursor
-from tweepy.streaming import StreamListener
-import json
-import csv
 import re # regular epression
 # import preprocessor as p
 import os
 import pandas as pd
-from textblob import TextBlob
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from nltk.tokenize import RegexpTokenizer
 import string
 
 auth = OAuthHandler(secrets.consumer_key, secrets.consumer_secret)

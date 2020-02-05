@@ -1,4 +1,4 @@
-import secrets
+from instance import secrets
 from tweepy import OAuthHandler
 from tweepy import API
 from tweepy import Cursor
@@ -24,7 +24,6 @@ def get_tweets(keyword, date):
             # join the the array of words from the tweet with a white-space
             tweet_text = " ".join(tweet_text.split())
             new_entry.append(tweet_text)
-            # blob_text += clean_text + ' '
 
             single_tweet_df = pd.DataFrame([new_entry], columns=["tweet"])
             df = df.append(single_tweet_df, ignore_index=True)

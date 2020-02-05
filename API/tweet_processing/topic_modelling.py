@@ -58,12 +58,12 @@ def clean_tweet(tweet):
     tweet = ' '.join(tweet_token_list)
     return tweet
 
-def display_topics(model, feature_names, number_of_words):
+def format_topics(model, feature_names, number_of_words):
     topic_dict = {}
     for topic_idx, topic in enumerate(model.components_):
-        topic_dict["words %d" % (topic_idx)]= ['{}'.format(feature_names[i])
+        topic_dict["words %d" % (topic_idx)] = ['{}'.format(feature_names[i])
                         for i in topic.argsort()[:-number_of_words - 1:-1]]
-        topic_dict["weights %d" % (topic_idx)]= ['{:.1f}'.format(topic[i])
+        topic_dict["weights %d" % (topic_idx)] = ['{:.1f}'.format(topic[i])
                         for i in topic.argsort()[:-number_of_words - 1:-1]]
 
     word_maps = []
@@ -81,16 +81,16 @@ def display_topics(model, feature_names, number_of_words):
 def train_model(df):
     df['clean_tweet'] = df.tweet.apply(clean_tweet)
 
-    # the vectorizer object will be used to transform text to vector form
+    # the vectorizer object is used to transform the tweets into vector form
     vectorizer = CountVectorizer(max_df=0.6, min_df=25, token_pattern='\w+|\$[\d\.]+|\S+')
 
-    # apply transformation
+    # transform to vector (term-frequency matrix)
     tf = vectorizer.fit_transform(df['clean_tweet']).toarray()
 
-    # tf_feature_names tells us what word each column in the matric represents
+    # the words that each column represents
     tf_feature_names = vectorizer.get_feature_names()
 
     model = LatentDirichletAllocation(n_components=number_of_topics, random_state=0)
     model.fit(tf)
 
-    return display_topics(model, tf_feature_names, number_of_words)
+    return format_topics(model, tf_feature_names, number_of_words)
